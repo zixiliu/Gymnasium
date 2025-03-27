@@ -1,0 +1,400 @@
+<mujoco model="fr3 scene">
+  <compiler angle="radian" meshdir="assets/"/>
+
+  <option integrator="implicitfast">
+    <flag multiccd="enable"/>
+  </option>
+
+  <visual>
+    <global azimuth="120" elevation="-20"/>
+    <headlight ambient="0.3 0.3 0.3" diffuse="0.6 0.6 0.6" specular="0 0 0"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+  </visual>
+
+  <statistic extent="0.8" center="0.2 0 0.4"/>
+
+  <default>
+    <default class="fr3">
+      <joint armature="0.1" damping="1"/>
+      <site size="0.001 0.005 0.005" group="4" rgba="0.5 0.5 0.5 0.3"/>
+      <default class="visual">
+        <geom type="mesh" contype="0" conaffinity="0" group="2"/>
+      </default>
+      <default class="collision">
+        <geom type="mesh" group="3" density="8000"/>
+      </default>
+    </default>
+    <default class="hand_main">
+      <default class="hand_allegro_hand_right">
+        <joint stiffness="1" armature="0.1" damping="1"/>
+        <site size="0.001 0.005 0.005" group="4" rgba="0.5 0.5 0.5 0.3"/>
+        <general biastype="affine" biasprm="0 -1"/>
+        <default class="hand_visual">
+          <geom type="mesh" contype="0" conaffinity="0"/>
+        </default>
+        <default class="hand_collision">
+          <geom type="mesh" group="1" solref="0.002" density="8000"/>
+        </default>
+      </default>
+    </default>
+  </default>
+
+  <extension>
+    <plugin plugin="mujoco.elasticity.shell"/>
+  </extension>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3" markrgb="0.8 0.8 0.8" width="300" height="300"/>
+    <material name="black" rgba="0.2 0.2 0.2 1"/>
+    <material name="white"/>
+    <material name="red" rgba="1 0.072272 0.039546 1"/>
+    <material name="gray" rgba="0.863156 0.863156 0.863157 1"/>
+    <material name="button_green" rgba="0.102241 0.571125 0.102242 1"/>
+    <material name="button_red" rgba="0.520996 0.008023 0.013702 1"/>
+    <material name="button_blue" rgba="0.024157 0.445201 0.737911 1"/>
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
+    <material name="Steel_-_Satin" rgba="0.627451 0.627451 0.627451 1"/>
+    <mesh name="link0_0" file="link0_0.obj"/>
+    <mesh name="link0_1" file="link0_1.obj"/>
+    <mesh name="link0_2" file="link0_2.obj"/>
+    <mesh name="link0_3" file="link0_3.obj"/>
+    <mesh name="link0_4" file="link0_4.obj"/>
+    <mesh name="link0_5" file="link0_5.obj"/>
+    <mesh name="link0_6" file="link0_6.obj"/>
+    <mesh name="link1" file="link1.obj"/>
+    <mesh name="link2" file="link2.obj"/>
+    <mesh name="link3_0" file="link3_0.obj"/>
+    <mesh name="link3_1" file="link3_1.obj"/>
+    <mesh name="link4_0" file="link4_0.obj"/>
+    <mesh name="link4_1" file="link4_1.obj"/>
+    <mesh name="link5_0" file="link5_0.obj"/>
+    <mesh name="link5_1" file="link5_1.obj"/>
+    <mesh name="link5_2" file="link5_2.obj"/>
+    <mesh name="link6_0" file="link6_0.obj"/>
+    <mesh name="link6_1" file="link6_1.obj"/>
+    <mesh name="link6_2" file="link6_2.obj"/>
+    <mesh name="link6_3" file="link6_3.obj"/>
+    <mesh name="link6_4" file="link6_4.obj"/>
+    <mesh name="link6_5" file="link6_5.obj"/>
+    <mesh name="link6_6" file="link6_6.obj"/>
+    <mesh name="link6_7" file="link6_7.obj"/>
+    <mesh name="link7_0" file="link7_0.obj"/>
+    <mesh name="link7_1" file="link7_1.obj"/>
+    <mesh name="link7_2" file="link7_2.obj"/>
+    <mesh name="link7_3" file="link7_3.obj"/>
+    <mesh name="link0_coll" file="link0.stl"/>
+    <mesh name="link1_coll" file="link1.stl"/>
+    <mesh name="link2_coll" file="link2.stl"/>
+    <mesh name="link3_coll" file="link3.stl"/>
+    <mesh name="link4_coll" file="link4.stl"/>
+    <mesh name="link5_coll" file="link5.stl"/>
+    <mesh name="link6_coll" file="link6.stl"/>
+    <mesh name="link7_coll" file="link7.stl"/>
+    <mesh name="WB" file="WB.obj"/>
+    <mesh name="hand_4x6" file="4x6.stl"/>
+    <mesh name="hand_link_1_cover" file="link_1_cover.stl"/>
+    <mesh name="hand_4x4" file="4x4.stl"/>
+    <mesh name="hand_link_2_cover" file="link_2_cover.stl"/>
+    <mesh name="hand_ft_c" file="ft_c.stl"/>
+    <mesh name="hand_thumb_1_cover" file="thumb_1_cover.stl"/>
+    <mesh name="hand_thumb_2_cover" file="thumb_2_cover.stl"/>
+    <mesh name="hand_base" file="base.stl"/>
+  </asset>
+
+  <worldbody>
+    <geom name="floor" size="0 0 0.05" type="plane" material="groundplane"/>
+    <geom name="epsilon_force" class="visual" size="0.03 0.03 0.0001" pos="0.4 0.35 0.5" type="box" rgba="1 1 0 1"/>
+    <geom name="epsilon_torque" class="visual" size="0.03 0.03 0.0001" pos="0.5 0.35 0.5" type="box" rgba="1 0.5 0.2 1"/>
+    <geom name="epsilon1_force" class="visual" size="0.03 0.03 0.0001" pos="0.6 0.35 0.5" type="box" rgba="0 0 1 1"/>
+    <geom name="epsilon1_torque" class="visual" size="0.03 0.03 0.0001" pos="0.7 0.35 0.5" type="box" rgba="0.5 0.1 1 1"/>
+    <geom name="hull_force" class="visual" size="0.03 0.03 0.0001" pos="0.9 0.35 0.5" type="box" rgba="0 1 0 1"/>
+    <geom name="hull_torque" class="visual" size="0.03 0.03 0.0001" pos="1 0.35 0.5" type="box" rgba="0.4 1 0.2 1"/>
+    <light pos="0 0 1.5" dir="0 0 -1" directional="true"/>
+    <body name="base" childclass="fr3" gravcomp="1">
+      <body name="fr3_link0">
+        <geom class="visual" material="black" mesh="link0_0"/>
+        <geom class="visual" material="white" mesh="link0_1"/>
+        <geom class="visual" material="white" mesh="link0_2"/>
+        <geom class="visual" material="white" mesh="link0_3"/>
+        <geom class="visual" material="white" mesh="link0_4"/>
+        <geom class="visual" material="red" mesh="link0_5"/>
+        <geom class="visual" material="black" mesh="link0_6"/>
+        <geom name="fr3_link0_collision" class="collision" mesh="link0_coll"/>
+        <body name="fr3_link1" pos="0 0 0.333">
+          <inertial pos="4.128e-07 -0.0181251 -0.0386036" quat="0.999901 0.0021545 0.00429041 0.0132325" mass="2.92747" diaginertia="0.0186043 0.0181194 0.00538716"/>
+          <joint name="fr3_joint1" pos="0 0 0" axis="0 0 1" range="-2.7437 2.7437" actuatorgravcomp="true" actuatorfrcrange="-87 87"/>
+          <geom class="visual" material="white" mesh="link1"/>
+          <body name="fr3_link2" quat="0.707107 -0.707107 0 0">
+            <inertial pos="0.00318289 -0.0743222 0.00881461" quat="0.356855 0.680818 -0.434812 0.469126" mass="2.93554" diaginertia="0.0299291 0.0299291 0.0299291"/>
+            <joint name="fr3_joint2" pos="0 0 0" axis="0 0 1" range="-1.7837 1.7837" actuatorgravcomp="true" actuatorfrcrange="-87 87"/>
+            <geom class="visual" material="white" mesh="link2"/>
+            <body name="fr3_link3" pos="0 -0.316 0" quat="0.707107 0.707107 0 0">
+              <inertial pos="0.0407016 -0.00482006 -0.0289731" quat="0.950032 -0.148357 0.229935 0.150201" mass="2.2449" diaginertia="0.0140109 0.0140109 0.0140109"/>
+              <joint name="fr3_joint3" pos="0 0 0" axis="0 0 1" range="-2.9007 2.9007" actuatorgravcomp="true" actuatorfrcrange="-87 87"/>
+              <geom class="visual" material="white" mesh="link3_0"/>
+              <geom class="visual" material="black" mesh="link3_1"/>
+              <body name="fr3_link4" pos="0.0825 0 0" quat="0.707107 0.707107 0 0">
+                <inertial pos="-0.0459101 0.0630493 -0.00851879" quat="0.23761 0.892458 -0.00078702 0.383484" mass="2.6156" diaginertia="0.0206104 0.0206104 0.0206104"/>
+                <joint name="fr3_joint4" pos="0 0 0" axis="0 0 1" range="-3.0421 -0.1518" actuatorgravcomp="true" actuatorfrcrange="-87 87"/>
+                <geom class="visual" material="white" mesh="link4_0"/>
+                <geom class="visual" material="black" mesh="link4_1"/>
+                <body name="fr3_link5" pos="-0.0825 0.384 0" quat="0.707107 -0.707107 0 0">
+                  <inertial pos="-0.00160396 0.0292536 -0.0972966" quat="0.922285 0.098826 0.0982562 -0.360514" mass="2.32712" diaginertia="0.0182879 0.0182879 0.0182879"/>
+                  <joint name="fr3_joint5" pos="0 0 0" axis="0 0 1" range="-2.8065 2.8065" actuatorgravcomp="true" actuatorfrcrange="-12 12"/>
+                  <geom class="visual" material="white" mesh="link5_0"/>
+                  <geom class="visual" material="white" mesh="link5_1"/>
+                  <geom class="visual" material="black" mesh="link5_2"/>
+                  <body name="fr3_link6" quat="0.707107 0.707107 0 0">
+                    <inertial pos="0.0597131 -0.0410295 -0.0101693" quat="0.593933 0.525442 0.520644 0.316361" mass="1.81704" diaginertia="0.00483538 0.00483538 0.00483538"/>
+                    <joint name="fr3_joint6" pos="0 0 0" axis="0 0 1" range="0.5445 4.5169" actuatorgravcomp="true" actuatorfrcrange="-12 12"/>
+                    <geom class="visual" material="button_green" mesh="link6_0"/>
+                    <geom class="visual" material="white" mesh="link6_1"/>
+                    <geom class="visual" material="white" mesh="link6_2"/>
+                    <geom class="visual" material="gray" mesh="link6_3"/>
+                    <geom class="visual" material="button_red" mesh="link6_4"/>
+                    <geom class="visual" material="white" mesh="link6_5"/>
+                    <geom class="visual" material="black" mesh="link6_6"/>
+                    <geom class="visual" material="button_blue" mesh="link6_7"/>
+                    <body name="fr3_link7" pos="0.088 0 0" quat="0.707107 0.707107 0 0">
+                      <inertial pos="0.00452258 0.00862619 -0.0161633" quat="0.120255 0.394761 -0.799132 0.437139" mass="0.627143" diaginertia="3.076e-07 3.076e-07 3.076e-07"/>
+                      <joint name="fr3_joint7" pos="0 0 0" axis="0 0 1" range="-3.0159 3.0159" actuatorgravcomp="true" actuatorfrcrange="-12 12"/>
+                      <geom class="visual" material="black" mesh="link7_0"/>
+                      <geom class="visual" material="white" mesh="link7_1"/>
+                      <geom class="visual" material="white" mesh="link7_2"/>
+                      <geom class="visual" material="black" mesh="link7_3"/>
+                      <site name="attachment_site" pos="0 0 0.207"/>
+                      <geom class="hand_visual" pos="0 0 0.207" quat="1 0 0 0" mesh="hand_base"/>
+                      <geom name="hand_palm" class="hand_collision" pos="0 0 0.207" quat="1 0 0 0" mesh="hand_base"/>
+                      <body name="hand_palm_top_left" pos="0.013 -0.051 0.1705">
+                        <geom name="hand_palm_top_left" class="hand_collision" quat="0.5 0.5 0.5 0.5" mass="1e-06" rgba="0 0 0.3 1" mesh="hand_4x6"/>
+                        <site name="hand_sensor_palm_top_left" pos="0 0 0" rgba="0 0 1 0"/>
+                      </body>
+                      <body name="hand_palm_top_right" pos="0.013 0.0523 0.202">
+                        <geom name="hand_palm_top_right" class="hand_collision" quat="0.5 -0.5 0.5 -0.5" mass="1e-06" rgba="0 0 0.3 1" mesh="hand_4x6"/>
+                        <site name="hand_sensor_palm_top_right" pos="0 0 0" rgba="0 0 1 0"/>
+                      </body>
+                      <body name="hand_palm_bottom_left" pos="0.013 -0.051 0.139">
+                        <geom name="hand_palm_bottom_left" class="hand_collision" quat="0.5 0.5 0.5 0.5" mass="1e-06" rgba="0 0 0.3 1" mesh="hand_4x6"/>
+                        <site name="hand_sensor_palm_bottom_left" pos="0 0 0" rgba="0 0 1 0"/>
+                      </body>
+                      <body name="hand_link_0" pos="0 0.0435 0.205458" quat="0.999048 -0.0436194 0 0">
+                        <inertial pos="0 0 0" quat="0.703195 0.70346 -0.0723714 0.0736484" mass="0.0127" diaginertia="1.39014e-07 1.14986e-07 6.82998e-08"/>
+                        <joint name="hand_hand_joint_0" pos="0 0 0" axis="0 0 1" range="-0.47 0.47" actuatorfrcrange="-15 15"/>
+                        <body name="hand_link_1" pos="0 0 0.0189">
+                          <inertial pos="-0.00317599 0.000135519 0.0112411" quat="0.709266 -0.080285 -0.074246 0.696407" mass="0.12225" diaginertia="7.40631e-05 6.67575e-05 1.49158e-05"/>
+                          <joint name="hand_hand_joint_1" pos="0 0 0" axis="0 1 0" range="-0.196 1.61" actuatorfrcrange="-15 15"/>
+                          <geom name="hand_index_prox_box" size="0.0098 0.01375 0.04" pos="0 0 0.025" type="box" rgba="0.2 0.2 0.2 0.8"/>
+                          <geom type="mesh" rgba="0.8 0 0 1" mesh="hand_link_1_cover"/>
+                          <body name="hand_index_prox_dis" pos="0.0108 0.012 0.033">
+                            <geom name="hand_index_prox_dis" class="hand_collision" quat="0 0.707107 0 0.707107" mass="1e-06" rgba="0 0 0.3 1" mesh="hand_4x4"/>
+                            <site name="hand_sensor_index_prox_dis" pos="0 0 0" rgba="0 0 1 0"/>
+                          </body>
+                          <body name="hand_index_prox_prox" pos="0.0108 -0.012 0.021">
+                            <geom name="hand_index_prox_prox" class="hand_collision" quat="0.707107 0 0.707107 0" mass="1e-06" rgba="0 0 0.3 1" mesh="hand_4x4"/>
+                            <site name="hand_sensor_index_prox_prox" pos="0 0 0" rgba="0 0 1 0"/>
+                          </body>
+                          <body name="hand_link_2" pos="0 0 0.054">
+                            <inertial pos="-0.00199889 -0.000124031 0.0132248" quat="0.699146 -0.0804649 -0.0866941 0.705127" mass="0.0622011" diaginertia="3.52138e-05 3.37231e-05 3.35512e-06"/>
+                            <joint name="hand_hand_joint_2" pos="0 0 0" axis="0 1 0" range="-0.174 1.709" actuatorfrcrange="-15 15"/>
+                            <geom name="hand_index_box_dist" size="0.0098 0.01375 0.0132" pos="0 0 0.032" type="box" rgba="0.2 0.2 0.2 0.8"/>
+                            <geom pos="0 0 0.002" type="mesh" rgba="0.8 0 0 1" mesh="hand_link_2_cover"/>
+                            <body name="hand_index_dist" pos="0.01 -0.012 0.0445">
+                              <geom name="hand_index_dist" class="hand_collision" quat="0.707107 0 0.707107 0" mass="1e-06" rgba="0 0 0.3 1" mesh="hand_4x4"/>
+                              <site name="hand_sensor_index_dist" pos="0 0 0" rgba="0 0 1 0"/>
+                            </body>
+                            <body name="hand_link_3" pos="0 0 0.0384">
+                              <inertial pos="1.43222e-05 7.89522e-08 0.0122026" quat="0.999997 -4.16762e-06 -0.00245777 4.46584e-05" mass="0.0649583" diaginertia="2.34015e-05 2.29351e-05 4.59224e-06"/>
+                              <joint name="hand_hand_joint_3" pos="0 0 0" axis="0 1 0" range="-0.227 1.618" actuatorfrcrange="-15 15"/>
+                              <body name="hand_index_fingertip" pos="-0.013 0 0.016">
+                                <geom name="hand_index_fingertip" class="hand_collision" quat="0.5 0.5 0.5 0.5" mass="1e-06" rgba="0 0 0.3 1" mesh="hand_ft_c"/>
+                                <site name="hand_sensor_index_fingertip" pos="0 0 0" rgba="0 0 1 0"/>
+                              </body>
+                            </body>
+                          </body>
+                        </body>
+                      </body>
+                      <body name="hand_link_4" pos="0 0 0.2077">
+                        <inertial pos="0 0 0" quat="0.703195 0.70346 -0.0723714 0.0736484" mass="0.0127" diaginertia="1.39014e-07 1.14986e-07 6.82998e-08"/>
+                        <joint name="hand_hand_joint_4" pos="0 0 0" axis="0 0 1" range="-0.47 0.47" actuatorfrcrange="-15 15"/>
+                        <body name="hand_link_5" pos="0 0 0.0189">
+                          <inertial pos="-0.00317599 0.000135519 0.0112411" quat="0.709266 -0.080285 -0.074246 0.696407" mass="0.12225" diaginertia="7.40631e-05 6.67575e-05 1.49158e-05"/>
+                          <joint name="hand_hand_joint_5" pos="0 0 0" axis="0 1 0" range="-0.196 1.61" actuatorfrcrange="-15 15"/>
+                          <geom name="hand_middle_prox_box" size="0.0098 0.01375 0.04" pos="0 0 0.025" type="box" rgba="0.2 0.2 0.2 0.8"/>
+                          <geom type="mesh" rgba="0.8 0 0 1" mesh="hand_link_1_cover"/>
+                          <geom name="hand_middle_prox_dis_mesh" pos="0.0108 0.012 0.033" quat="0 0.707107 0 0.707107" type="mesh" mesh="hand_4x4"/>
+                          <geom name="hand_middle_prox_prox_mesh" pos="0.0108 -0.012 0.021" quat="0.707107 0 0.707107 0" type="mesh" mesh="hand_4x4"/>
+                          <body name="hand_middle_prox_dis" pos="0.0108 0.012 0.033">
+                            <geom name="hand_middle_prox_dis" class="hand_collision" quat="0 0.707107 0 0.707107" mass="1e-06" rgba="0 0 0.3 1" mesh="hand_4x4"/>
+                            <site name="hand_sensor_middle_prox_dis" pos="0 0 0" rgba="0 0 1 0"/>
+                          </body>
+                          <body name="hand_middle_prox_prox" pos="0.0108 -0.012 0.021">
+                            <geom name="hand_middle_prox_prox" class="hand_collision" quat="0.707107 0 0.707107 0" mass="1e-06" rgba="0 0 0.3 1" mesh="hand_4x4"/>
+                            <site name="hand_sensor_middle_prox_prox" pos="0 0 0" rgba="0 0 1 0"/>
+                          </body>
+                          <body name="hand_link_6" pos="0 0 0.054">
+                            <inertial pos="-0.00199889 -0.000124031 0.0132248" quat="0.699146 -0.0804649 -0.0866941 0.705127" mass="0.0622011" diaginertia="3.52138e-05 3.37231e-05 3.35512e-06"/>
+                            <joint name="hand_hand_joint_6" pos="0 0 0" axis="0 1 0" range="-0.174 1.709" actuatorfrcrange="-15 15"/>
+                            <geom name="hand_middle_box_dist" size="0.0098 0.01375 0.0132" pos="0 0 0.032" type="box" rgba="0.2 0.2 0.2 0.8"/>
+                            <geom pos="0 0 0.002" type="mesh" rgba="0.8 0 0 1" mesh="hand_link_2_cover"/>
+                            <geom name="hand_middle_dist_mesh" pos="0.01 -0.012 0.0445" quat="0.707107 0 0.707107 0" type="mesh" mesh="hand_4x4"/>
+                            <body name="hand_middle_dist" pos="0.01 -0.012 0.0445">
+                              <geom name="hand_middle_dist" class="hand_collision" quat="0.707107 0 0.707107 0" mass="1e-06" rgba="0 0 0.3 1" mesh="hand_4x4"/>
+                              <site name="hand_sensor_middle_dist" pos="0 0 0" rgba="0 0 1 0"/>
+                            </body>
+                            <body name="hand_link_7" pos="0 0 0.0384">
+                              <inertial pos="1.43222e-05 7.89522e-08 0.0122026" quat="0.999997 -4.16762e-06 -0.00245777 4.46584e-05" mass="0.0649583" diaginertia="2.34015e-05 2.29351e-05 4.59224e-06"/>
+                              <joint name="hand_hand_joint_7" pos="0 0 0" axis="0 1 0" range="-0.227 1.618" actuatorfrcrange="-15 15"/>
+                              <geom size="0.0098 0.01375 0.0132" pos="0 0 0.0132" type="box" rgba="0.2 0.2 0.2 0.8"/>
+                              <geom name="hand_middle_fingertip_mesh" pos="-0.013 0 0.016" quat="0.5 0.5 0.5 0.5" type="mesh" mesh="hand_ft_c"/>
+                              <body name="hand_middle_fingertip" pos="-0.013 0 0.016">
+                                <geom name="hand_middle_fingertip" class="hand_collision" quat="0.5 0.5 0.5 0.5" mass="1e-06" rgba="0 0 0.3 1" mesh="hand_ft_c"/>
+                                <site name="hand_sensor_middle_fingertip" pos="0 0 0" rgba="0 0 1 0"/>
+                              </body>
+                            </body>
+                          </body>
+                        </body>
+                      </body>
+                      <body name="hand_link_8" pos="0 -0.0435 0.205458" quat="0.999048 0.0436194 0 0">
+                        <inertial pos="0 0 0" quat="0.703195 0.70346 -0.0723714 0.0736484" mass="0.0127" diaginertia="1.39014e-07 1.14986e-07 6.82998e-08"/>
+                        <joint name="hand_hand_joint_8" pos="0 0 0" axis="0 0 1" range="-0.47 0.47" actuatorfrcrange="-15 15"/>
+                        <body name="hand_link_9" pos="0 0 0.0189">
+                          <inertial pos="-0.00317599 0.000135519 0.0112411" quat="0.709266 -0.080285 -0.074246 0.696407" mass="0.12225" diaginertia="7.40631e-05 6.67575e-05 1.49158e-05"/>
+                          <joint name="hand_hand_joint_9" pos="0 0 0" axis="0 1 0" range="-0.196 1.61" actuatorfrcrange="-15 15"/>
+                          <geom name="hand_ring_prox_box" size="0.0098 0.01375 0.04" pos="0 0 0.025" type="box" rgba="0.2 0.2 0.2 0.8"/>
+                          <geom type="mesh" rgba="0.8 0 0 1" mesh="hand_link_1_cover"/>
+                          <geom name="hand_ring_prox_dis_mesh" pos="0.0108 0.012 0.033" quat="0 0.707107 0 0.707107" type="mesh" mesh="hand_4x4"/>
+                          <geom name="hand_ring_prox_prox_mesh" pos="0.0108 -0.012 0.021" quat="0.707107 0 0.707107 0" type="mesh" mesh="hand_4x4"/>
+                          <body name="hand_ring_prox_dis" pos="0.0108 0.012 0.033">
+                            <geom name="hand_ring_prox_dis" class="hand_collision" quat="0 0.707107 0 0.707107" mass="1e-06" rgba="0 0 0.3 1" mesh="hand_4x4"/>
+                            <site name="hand_sensor_ring_prox_dis" pos="0 0 0" rgba="0 0 1 0"/>
+                          </body>
+                          <body name="hand_ring_prox_prox" pos="0.0108 -0.012 0.021">
+                            <geom name="hand_ring_prox_prox" class="hand_collision" quat="0.707107 0 0.707107 0" mass="1e-06" rgba="0 0 0.3 1" mesh="hand_4x4"/>
+                            <site name="hand_sensor_ring_prox_prox" pos="0 0 0" rgba="0 0 1 0"/>
+                          </body>
+                          <body name="hand_link_10" pos="0 0 0.054">
+                            <inertial pos="-0.00199889 -0.000124031 0.0132248" quat="0.699146 -0.0804649 -0.0866941 0.705127" mass="0.0622011" diaginertia="3.52138e-05 3.37231e-05 3.35512e-06"/>
+                            <joint name="hand_hand_joint_10" pos="0 0 0" axis="0 1 0" range="-0.174 1.709" actuatorfrcrange="-15 15"/>
+                            <geom name="hand_ring_box_dist" size="0.0098 0.01375 0.0132" pos="0 0 0.032" type="box" rgba="0.2 0.2 0.2 0.8"/>
+                            <geom pos="0 0 0.002" type="mesh" rgba="0.8 0 0 1" mesh="hand_link_2_cover"/>
+                            <geom name="hand_ring_dist_mesh" pos="0.01 -0.012 0.0445" quat="0.707107 0 0.707107 0" type="mesh" mesh="hand_4x4"/>
+                            <body name="hand_ring_dist" pos="0.01 -0.012 0.0445">
+                              <geom name="hand_ring_dist" class="hand_collision" quat="0.707107 0 0.707107 0" mass="1e-06" rgba="0 0 0.3 1" mesh="hand_4x4"/>
+                              <site name="hand_sensor_ring_dist" pos="0 0 0" rgba="0 0 1 0"/>
+                            </body>
+                            <body name="hand_link_11" pos="0 0 0.0384">
+                              <inertial pos="1.43222e-05 7.89522e-08 0.0122026" quat="0.999997 -4.16762e-06 -0.00245777 4.46584e-05" mass="0.0649583" diaginertia="2.34015e-05 2.29351e-05 4.59224e-06"/>
+                              <joint name="hand_hand_joint_11" pos="0 0 0" axis="0 1 0" range="-0.227 1.618" actuatorfrcrange="-15 15"/>
+                              <geom size="0.0098 0.01375 0.0132" pos="0 0 0.0132" type="box" rgba="0.2 0.2 0.2 0.8"/>
+                              <geom name="hand_ring_fingertip_mesh" pos="-0.013 0 0.016" quat="0.5 0.5 0.5 0.5" type="mesh" mesh="hand_ft_c"/>
+                              <body name="hand_ring_fingertip" pos="-0.013 0 0.016">
+                                <geom name="hand_ring_fingertip" class="hand_collision" quat="0.5 0.5 0.5 0.5" mass="1e-06" rgba="0 0 0.3 1" mesh="hand_ft_c"/>
+                                <site name="hand_sensor_ring_fingertip" pos="0 0 0" rgba="0 0 1 0"/>
+                              </body>
+                            </body>
+                          </body>
+                        </body>
+                      </body>
+                      <body name="hand_link_12" pos="-0.0182 0.019333 0.160513" quat="0.477714 -0.521334 -0.521334 -0.477714">
+                        <inertial pos="0 0 0" quat="0.706853 0.0589491 -0.0734332 0.701065" mass="0.0176" diaginertia="3.88669e-06 3.36035e-06 2.54296e-06"/>
+                        <joint name="hand_hand_joint_12" pos="0 0 0" axis="-1 0 0" range="0.263 1.396" actuatorfrcrange="-15 15"/>
+                        <body name="hand_link_13" pos="-0.027 0.005 0.0399">
+                          <inertial pos="0 0 0" quat="0.703195 0.70346 -0.0723714 0.0736484" mass="0.0127" diaginertia="1.39014e-07 1.14986e-07 6.82998e-08"/>
+                          <joint name="hand_hand_joint_13" pos="0 0 0" axis="0 0 1" range="-0.105 1.163" actuatorfrcrange="-15 15"/>
+                          <body name="hand_link_14" pos="0 0 0.0197" quat="0.999962 0 -0.00872654 0">
+                            <inertial pos="-0.00200265 -5.85522e-05 0.00172067" quat="0.505298 0.492616 0.4901 0.51167" mass="0.0629382" diaginertia="9.21626e-06 6.82664e-06 5.56311e-06"/>
+                            <joint name="hand_hand_joint_14" pos="0 0 0" axis="0 1 0" range="-0.189 1.644" actuatorfrcrange="-15 15"/>
+                            <geom name="hand_thumb_prox_box" size="0.0098 0.01375 0.02115" pos="0 0 0.01" type="box" rgba="0.2 0.2 0.2 0.8"/>
+                            <geom pos="0 0 0.01" quat="0 1 0 0" type="mesh" rgba="0.8 0 0 1" mesh="hand_thumb_1_cover"/>
+                            <geom name="hand_thumb_prox_mesh" pos="0.0108 -0.012 0.021" quat="0.707107 0 0.707107 0" type="mesh" mesh="hand_4x4"/>
+                            <body name="hand_thumb_prox" pos="0.0108 -0.012 0.021">
+                              <geom name="hand_thumb_prox" class="hand_collision" quat="0.707107 0 0.707107 0" mass="1e-06" rgba="0 0 0.3 1" mesh="hand_4x4"/>
+                              <site name="hand_sensor_thumb_prox" pos="0 0 0" rgba="0 0 1 0"/>
+                            </body>
+                            <body name="hand_link_15" pos="0 0 0.0514">
+                              <inertial pos="-0.00111584 -3.19341e-05 0.0108292" quat="0.704563 0.006361 0.00649083 0.709584" mass="0.117359" diaginertia="8.13777e-05 7.74937e-05 1.51183e-05"/>
+                              <joint name="hand_hand_joint_15" pos="0 0 0" axis="0 1 0" range="-0.162 1.719" actuatorfrcrange="-15 15"/>
+                              <geom name="hand_thumb_dist_box" size="0.0098 0.01375 0.02115" pos="0 0 0.01" type="box" rgba="0.2 0.2 0.2 0.8"/>
+                              <geom pos="0 0 0.01" quat="0 1 0 0" type="mesh" rgba="0.8 0 0 1" mesh="hand_thumb_2_cover"/>
+                              <geom name="hand_thumb_dist_mesh" pos="0.011 -0.012 0.021" quat="0.707107 0 0.707107 0" type="mesh" mesh="hand_4x4"/>
+                              <geom name="hand_thumb_fingertip_mesh" pos="-0.013 0 0.0315" quat="0.5 0.5 0.5 0.5" type="mesh" mesh="hand_ft_c"/>
+                              <body name="hand_thumb_dist" pos="0.011 -0.012 0.021">
+                                <geom name="hand_thumb_dist" class="hand_collision" quat="0.707107 0 0.707107 0" mass="1e-06" rgba="0 0 0.3 1" mesh="hand_4x4"/>
+                                <site name="hand_sensor_thumb_dist" pos="0 0 0" rgba="0 0 1 0"/>
+                              </body>
+                              <body name="hand_thumb_fingertip" pos="-0.013 0 0.0315">
+                                <geom name="hand_thumb_fingertip" class="hand_collision" quat="0.5 0.5 0.5 0.5" mass="1e-06" rgba="0 0 0.3 1" mesh="hand_ft_c"/>
+                                <site name="hand_sensor_thumb_fingertip" pos="0 0 0" rgba="0 0 1 0"/>
+                              </body>
+                            </body>
+                          </body>
+                        </body>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+    <body name="WB" pos="0.5 -0.1 0.6">
+      <joint name="waterBottleJoint" type="free" limited="false" actuatorfrclimited="false"/>
+      <geom class="visual" condim="6" friction="2" solref="0.002" density="80" material="Steel_-_Satin" mesh="WB"/>
+      <geom name="object" class="collision" condim="6" solref="0.002" density="80" mesh="WB"/>
+    </body>
+    <body name="table" pos="0.6 0 0.5">
+      <geom class="collision" size="0.2 0.2 0.002" type="box" solref="0.0001"/>
+      <geom class="visual" size="0.2 0.2 0.002" type="box" rgba="0.73 0.286 0.192 0.2"/>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <general name="fr3_joint1" class="fr3" joint="fr3_joint1" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
+    <general name="fr3_joint2" class="fr3" joint="fr3_joint2" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
+    <general name="fr3_joint3" class="fr3" joint="fr3_joint3" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
+    <general name="fr3_joint4" class="fr3" joint="fr3_joint4" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
+    <general name="fr3_joint5" class="fr3" joint="fr3_joint5" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
+    <general name="fr3_joint6" class="fr3" joint="fr3_joint6" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
+    <general name="fr3_joint7" class="fr3" joint="fr3_joint7" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
+    <general name="hand_hand_joint_0" joint="hand_hand_joint_0" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
+    <general name="hand_hand_joint_1" joint="hand_hand_joint_1" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
+    <general name="hand_hand_joint_2" joint="hand_hand_joint_2" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
+    <general name="hand_hand_joint_3" joint="hand_hand_joint_3" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
+    <general name="hand_hand_joint_4" joint="hand_hand_joint_4" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
+    <general name="hand_hand_joint_5" joint="hand_hand_joint_5" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
+    <general name="hand_hand_joint_6" joint="hand_hand_joint_6" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
+    <general name="hand_hand_joint_7" joint="hand_hand_joint_7" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
+    <general name="hand_hand_joint_8" joint="hand_hand_joint_8" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
+    <general name="hand_hand_joint_9" joint="hand_hand_joint_9" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
+    <general name="hand_hand_joint_10" joint="hand_hand_joint_10" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
+    <general name="hand_hand_joint_11" joint="hand_hand_joint_11" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
+    <general name="hand_hand_joint_12" joint="hand_hand_joint_12" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
+    <general name="hand_hand_joint_13" joint="hand_hand_joint_13" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
+    <general name="hand_hand_joint_14" joint="hand_hand_joint_14" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
+    <general name="hand_hand_joint_15" joint="hand_hand_joint_15" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
+  </actuator>
+
+  <sensor>
+    <force site="hand_sensor_palm_top_left" name="hand_sensor_palm_top_left"/>
+    <force site="hand_sensor_palm_top_right" name="hand_sensor_palm_top_right"/>
+    <force site="hand_sensor_palm_bottom_left" name="hand_sensor_palm_bottom_left"/>
+    <force site="hand_sensor_index_prox_dis" name="hand_sensor_index_prox_dis"/>
+    <force site="hand_sensor_index_prox_prox" name="hand_sensor_index_prox_prox"/>
+    <force site="hand_sensor_index_dist" name="hand_sensor_index_dist"/>
+    <force site="hand_sensor_index_fingertip" name="hand_sensor_index_fingertip"/>
+    <force site="hand_sensor_middle_prox_dis" name="hand_sensor_middle_prox_dis"/>
+    <force site="hand_sensor_middle_prox_prox" name="hand_sensor_middle_prox_prox"/>
+    <force site="hand_sensor_middle_dist" name="hand_sensor_middle_dist"/>
+    <force site="hand_sensor_middle_fingertip" name="hand_sensor_middle_fingertip"/>
+    <force site="hand_sensor_ring_prox_dis" name="hand_sensor_ring_prox_dis"/>
+    <force site="hand_sensor_ring_prox_prox" name="hand_sensor_ring_prox_prox"/>
+    <force site="hand_sensor_ring_dist" name="hand_sensor_ring_dist"/>
+    <force site="hand_sensor_ring_fingertip" name="hand_sensor_ring_fingertip"/>
+    <force site="hand_sensor_thumb_prox" name="hand_sensor_thumb_prox"/>
+    <force site="hand_sensor_thumb_dist" name="hand_sensor_thumb_dist"/>
+    <force site="hand_sensor_thumb_fingertip" name="hand_sensor_thumb_fingertip"/>
+  </sensor>
+</mujoco>

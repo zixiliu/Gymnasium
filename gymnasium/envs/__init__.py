@@ -446,6 +446,13 @@ register(
     max_episode_steps=1000,
 )
 
+register(
+    id="FrankaXela",
+    entry_point="gymnasium.envs.mujoco.franka_xela:FrankaXelaEnv",
+    max_episode_steps=1000,
+)
+
+
 
 # --- For shimmy compatibility
 def _raise_shimmy_error(*args: Any, **kwargs: Any):
