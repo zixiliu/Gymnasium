@@ -1,11 +1,11 @@
 import numpy as np
 
 from gymnasium import utils
-from gymnasium.envs.mujoco.mujoco_py_env import MuJocoPyEnv
+from gymnasium.envs.mujoco.mujoco_env import MujocoEnv
 from gymnasium.spaces import Box
 
 
-class FrankaXelaEnv(MuJocoPyEnv, utils.EzPickle):
+class FrankaXelaEnv(MujocoEnv, utils.EzPickle):
     metadata = {
         "render_modes": [
             "human",
@@ -19,7 +19,7 @@ class FrankaXelaEnv(MuJocoPyEnv, utils.EzPickle):
         observation_space = Box(
             low=-np.inf, high=np.inf, shape=(224,), dtype=np.float64
         )
-        MuJocoPyEnv.__init__(
+        MujocoEnv.__init__(
             self, "franka_xela.xml", 25, observation_space=observation_space, **kwargs
         ) # frame_skipL: 5
         utils.EzPickle.__init__(self, **kwargs)
@@ -63,7 +63,7 @@ class FrankaXelaEnv(MuJocoPyEnv, utils.EzPickle):
         d = self.data
         object_center_of_mass_world = d.geom_xpos[self.object_geom_id]
         z_object = object_center_of_mass_world[2]
-        print(f"z_object: {z_object}")
+        # print(f"z_object: {z_object}")
         # bottle_at_target_reward = 1.0 - abs(z_object - 1) if (z_object > 0.61) else 0
         bottle_at_target_reward = 1.0 - abs(z_object - 1)
 
@@ -91,11 +91,11 @@ class FrankaXelaEnv(MuJocoPyEnv, utils.EzPickle):
 
     def step(self, a):
         self.do_simulation(a, self.frame_skip)
-        print(f"action: {a}")
+        # print(f"action: {a}")
         # import pdb; pdb.set_trace()
 
         reward, bottle_at_target_reward, contact_reward = self.get_reward()
-        print(f"reward: {reward}")
+        # print(f"reward: {reward}")
         state = self.state_vector()
         terminated = self.check_if_terminated()
         ob = self._get_obs()

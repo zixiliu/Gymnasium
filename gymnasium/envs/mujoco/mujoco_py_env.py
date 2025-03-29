@@ -9,20 +9,13 @@ from gymnasium import error, logger, spaces
 from gymnasium.spaces import Space
 
 
-# try:
-#     import mujoco_py
-# except ImportError as e:
-#     MUJOCO_PY_IMPORT_ERROR = e
-# else:
-#     MUJOCO_PY_IMPORT_ERROR = None
-
-
 try:
-    import mujoco
+    import mujoco_py
 except ImportError as e:
-    MUJOCO_IMPORT_ERROR = e
+    MUJOCO_PY_IMPORT_ERROR = e
 else:
-    MUJOCO_IMPORT_ERROR = None
+    MUJOCO_PY_IMPORT_ERROR = None
+
 
 # NOTE: duplication of analogous code in mujoco_env.py
 # Support for mujoco-py based envs is deprecated, so this module will no longer be maintained
@@ -219,21 +212,21 @@ class MuJocoPyEnv(BaseMujocoPyEnv):
         camera_id: Optional[int] = None,
         camera_name: Optional[str] = None,
     ):
-        # if MUJOCO_PY_IMPORT_ERROR is not None:
-        #     raise error.DependencyNotInstalled(
-        #         f"{MUJOCO_PY_IMPORT_ERROR}. "
-        #         "Could not import mujoco_py, which is needed for MuJoCo environments older than V4",
-        #         "You could either use a newer version of the environments, or install the (deprecated) mujoco-py package"
-        #         "following the instructions on their GitHub page.",
-        #     )
+        if MUJOCO_PY_IMPORT_ERROR is not None:
+            raise error.DependencyNotInstalled(
+                f"{MUJOCO_PY_IMPORT_ERROR}. "
+                "Could not import mujoco_py, which is needed for MuJoCo environments older than V4",
+                "You could either use a newer version of the environments, or install the (deprecated) mujoco-py package"
+                "following the instructions on their GitHub page.",
+            )
 
-        # logger.deprecation(
-        #     "This version of the mujoco environments depends "
-        #     "on the mujoco-py bindings, which are no longer maintained "
-        #     "and may stop working. Please upgrade to the v5 or v4 versions of "
-        #     "the environments (which depend on the mujoco python bindings instead), unless "
-        #     "you are trying to precisely replicate previous works)."
-        # )
+        logger.deprecation(
+            "This version of the mujoco environments depends "
+            "on the mujoco-py bindings, which are no longer maintained "
+            "and may stop working. Please upgrade to the v5 or v4 versions of "
+            "the environments (which depend on the mujoco python bindings instead), unless "
+            "you are trying to precisely replicate previous works)."
+        )
 
         self.viewer = None
         self._viewers = {}
@@ -250,14 +243,8 @@ class MuJocoPyEnv(BaseMujocoPyEnv):
         )
 
     def _initialize_simulation(self):
-        # model = mujoco_py.load_model_from_path(self.fullpath)
-        spec = mujoco.MjSpec.from_file(self.robot_xml_path)
-
-        ## TODO: verify that the following lines are correct
-        self.robot_model = arm_spec.compile()
-        self.robot_data = mujoco.MjData(self.robot_model)
+        model = mujoco_py.load_model_from_path(self.fullpath)
         self.sim = mujoco_py.MjSim(model)
-
         data = self.sim.data
         return model, data
 

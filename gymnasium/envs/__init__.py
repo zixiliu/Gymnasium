@@ -448,7 +448,7 @@ register(
 
 register(
     id="FrankaXela",
-    entry_point="gymnasium.envs.mujoco.franka_xela:FrankaXelaEnv",
+    entry_point="gymnasium.envs.mujoco.franka_xela_mujoco:FrankaXelaEnv",
     max_episode_steps=1000,
 )
 

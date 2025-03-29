@@ -352,29 +352,29 @@
   </worldbody>
 
   <actuator>
-    <general name="fr3_joint1" class="fr3" joint="fr3_joint1" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
-    <general name="fr3_joint2" class="fr3" joint="fr3_joint2" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
-    <general name="fr3_joint3" class="fr3" joint="fr3_joint3" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
-    <general name="fr3_joint4" class="fr3" joint="fr3_joint4" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
-    <general name="fr3_joint5" class="fr3" joint="fr3_joint5" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
-    <general name="fr3_joint6" class="fr3" joint="fr3_joint6" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
-    <general name="fr3_joint7" class="fr3" joint="fr3_joint7" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
-    <general name="hand_hand_joint_0" joint="hand_hand_joint_0" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
-    <general name="hand_hand_joint_1" joint="hand_hand_joint_1" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
-    <general name="hand_hand_joint_2" joint="hand_hand_joint_2" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
-    <general name="hand_hand_joint_3" joint="hand_hand_joint_3" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
-    <general name="hand_hand_joint_4" joint="hand_hand_joint_4" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
-    <general name="hand_hand_joint_5" joint="hand_hand_joint_5" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
-    <general name="hand_hand_joint_6" joint="hand_hand_joint_6" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
-    <general name="hand_hand_joint_7" joint="hand_hand_joint_7" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
-    <general name="hand_hand_joint_8" joint="hand_hand_joint_8" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
-    <general name="hand_hand_joint_9" joint="hand_hand_joint_9" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
-    <general name="hand_hand_joint_10" joint="hand_hand_joint_10" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
-    <general name="hand_hand_joint_11" joint="hand_hand_joint_11" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
-    <general name="hand_hand_joint_12" joint="hand_hand_joint_12" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
-    <general name="hand_hand_joint_13" joint="hand_hand_joint_13" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
-    <general name="hand_hand_joint_14" joint="hand_hand_joint_14" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
-    <general name="hand_hand_joint_15" joint="hand_hand_joint_15" biastype="affine" gainprm="2000" biasprm="0 -2000 -200"/>
+    <general name="fr3_joint1" class="fr3" joint="fr3_joint1" biastype="affine" gainprm="2000" biasprm="0 -2000 -200" ctrlrange="-30 30"/>
+    <general name="fr3_joint2" class="fr3" joint="fr3_joint2" biastype="affine" gainprm="2000" biasprm="0 -2000 -200" ctrlrange="-30 30"/>
+    <general name="fr3_joint3" class="fr3" joint="fr3_joint3" biastype="affine" gainprm="2000" biasprm="0 -2000 -200" ctrlrange="-30 30"/>
+    <general name="fr3_joint4" class="fr3" joint="fr3_joint4" biastype="affine" gainprm="2000" biasprm="0 -2000 -200" ctrlrange="-30 30"/>
+    <general name="fr3_joint5" class="fr3" joint="fr3_joint5" biastype="affine" gainprm="2000" biasprm="0 -2000 -200" ctrlrange="-30 30"/>
+    <general name="fr3_joint6" class="fr3" joint="fr3_joint6" biastype="affine" gainprm="2000" biasprm="0 -2000 -200" ctrlrange="-30 30"/>
+    <general name="fr3_joint7" class="fr3" joint="fr3_joint7" biastype="affine" gainprm="2000" biasprm="0 -2000 -200" ctrlrange="-30 30"/>
+    <general name="hand_hand_joint_0" joint="hand_hand_joint_0" biastype="affine" gainprm="2000" biasprm="0 -2000 -200" ctrlrange="-30 30"/>
+    <general name="hand_hand_joint_1" joint="hand_hand_joint_1" biastype="affine" gainprm="2000" biasprm="0 -2000 -200" ctrlrange="-30 30"/>
+    <general name="hand_hand_joint_2" joint="hand_hand_joint_2" biastype="affine" gainprm="2000" biasprm="0 -2000 -200" ctrlrange="-30 30"/>
+    <general name="hand_hand_joint_3" joint="hand_hand_joint_3" biastype="affine" gainprm="2000" biasprm="0 -2000 -200" ctrlrange="-30 30"/>
+    <general name="hand_hand_joint_4" joint="hand_hand_joint_4" biastype="affine" gainprm="2000" biasprm="0 -2000 -200" ctrlrange="-30 30"/>
+    <general name="hand_hand_joint_5" joint="hand_hand_joint_5" biastype="affine" gainprm="2000" biasprm="0 -2000 -200" ctrlrange="-30 30"/>
+    <general name="hand_hand_joint_6" joint="hand_hand_joint_6" biastype="affine" gainprm="2000" biasprm="0 -2000 -200" ctrlrange="-30 30"/>
+    <general name="hand_hand_joint_7" joint="hand_hand_joint_7" biastype="affine" gainprm="2000" biasprm="0 -2000 -200" ctrlrange="-30 30"/>
+    <general name="hand_hand_joint_8" joint="hand_hand_joint_8" biastype="affine" gainprm="2000" biasprm="0 -2000 -200" ctrlrange="-30 30"/>
+    <general name="hand_hand_joint_9" joint="hand_hand_joint_9" biastype="affine" gainprm="2000" biasprm="0 -2000 -200" ctrlrange="-30 30"/>
+    <general name="hand_hand_joint_10" joint="hand_hand_joint_10" biastype="affine" gainprm="2000" biasprm="0 -2000 -200" ctrlrange="-30 30"/>
+    <general name="hand_hand_joint_11" joint="hand_hand_joint_11" biastype="affine" gainprm="2000" biasprm="0 -2000 -200" ctrlrange="-30 30"/>
+    <general name="hand_hand_joint_12" joint="hand_hand_joint_12" biastype="affine" gainprm="2000" biasprm="0 -2000 -200" ctrlrange="-30 30"/>
+    <general name="hand_hand_joint_13" joint="hand_hand_joint_13" biastype="affine" gainprm="2000" biasprm="0 -2000 -200" ctrlrange="-30 30"/>
+    <general name="hand_hand_joint_14" joint="hand_hand_joint_14" biastype="affine" gainprm="2000" biasprm="0 -2000 -200" ctrlrange="-30 30"/>
+    <general name="hand_hand_joint_15" joint="hand_hand_joint_15" biastype="affine" gainprm="2000" biasprm="0 -2000 -200" ctrlrange="-30 30"/>
   </actuator>
 
   <sensor>
