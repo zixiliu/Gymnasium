@@ -26,6 +26,24 @@ class FrankaXelaEnv(MujocoEnv, utils.EzPickle):
 
         self.get_geom_idx_tactile()
 
+        init_pos = np.zeros(30)
+        init_pos[0:7] = np.array(
+            [
+                0.811,
+                -0.973,
+                -0.87,
+                -2.22,
+                -0.674,
+                2.66,
+                -1.47,
+            ]
+        )
+        init_pos[-7::] = np.array([0.5, -0.1,  0.6,  1. ,  0. ,  0. ,  0.])
+        self.init_qpos = init_pos
+
+        # self.reset_model()
+        # import pdb; pdb.set_trace()
+
     def get_geom_idx_tactile(self):
         ## list_of_geom_names is in the same order as the sensor is defined in the xml
         list_of_geom_names = ['hand_palm_top_left', 'hand_palm_top_right', 'hand_palm_bottom_left', \
@@ -49,23 +67,29 @@ class FrankaXelaEnv(MujocoEnv, utils.EzPickle):
         object_geom_id = self.model.geom(geom_name).id
         self.object_geom_id = object_geom_id
 
-        ## add visualization for minkowski
-        self.epsilon_force_geom_id = self.model.geom("epsilon_force").id
-        self.epsilon_torque_geom_id = self.model.geom("epsilon_torque").id
-        self.epsilon1_force_geom_id = self.model.geom("epsilon1_force").id
-        self.epsilon1_torque_geom_id = self.model.geom("epsilon1_torque").id
-        self.hull_force_geom_id = self.model.geom("hull_force").id
-        self.hull_torque_geom_id = self.model.geom("hull_torque").id
+        # ## add visualization for minkowski
+        # self.epsilon_force_geom_id = self.model.geom("epsilon_force").id
+        # self.epsilon_torque_geom_id = self.model.geom("epsilon_torque").id
+        # self.epsilon1_force_geom_id = self.model.geom("epsilon1_force").id
+        # self.epsilon1_torque_geom_id = self.model.geom("epsilon1_torque").id
+        # self.hull_force_geom_id = self.model.geom("hull_force").id
+        # self.hull_torque_geom_id = self.model.geom("hull_torque").id
 
         # print(f"list_of_geom_ids: {self.list_of_geom_ids}")
 
     def get_reward(self):
         d = self.data
-        object_center_of_mass_world = d.geom_xpos[self.object_geom_id]
-        z_object = object_center_of_mass_world[2]
+        # object_center_of_mass_world = d.geom_xpos[self.object_geom_id]
+        # waterbottle_joint_pos = d.joint('waterBottleJoint').qpos
+        # z_object = waterbottle_joint_pos[2]
+        curr_state = d.qpos.flatten()
+        water_bottle_state = curr_state[-8:-1]
+        z_object = water_bottle_state[2]
+
         # print(f"z_object: {z_object}")
         # bottle_at_target_reward = 1.0 - abs(z_object - 1) if (z_object > 0.61) else 0
         bottle_at_target_reward = 1.0 - abs(z_object - 1)
+        # bottle_at_target_reward = z_object
 
         # Calculate contact reward
         _, _, _, contact_forces = self.get_contact_sensor_readings()
@@ -73,9 +97,9 @@ class FrankaXelaEnv(MujocoEnv, utils.EzPickle):
         num_contacts = len(indices_of_contact_sensors)
         contact_reward = 1.0 if num_contacts >= 3 else 0.0
 
-        reward = bottle_at_target_reward + contact_reward
+        reward = bottle_at_target_reward + 10 * contact_reward
 
-
+        # print(f"reward={reward}, bottle_at_target_reward={bottle_at_target_reward}, contact_reward={contact_reward}")
         return reward, bottle_at_target_reward, contact_reward
 
     def check_if_terminated(self):
@@ -87,7 +111,7 @@ class FrankaXelaEnv(MujocoEnv, utils.EzPickle):
         bottole_down = z_object < 0.4
         terminated = bottole_down
 
-        return False
+        return terminated
 
     def step(self, a):
         self.do_simulation(a, self.frame_skip)
@@ -98,9 +122,11 @@ class FrankaXelaEnv(MujocoEnv, utils.EzPickle):
         # print(f"reward: {reward}")
         state = self.state_vector()
         terminated = self.check_if_terminated()
+
         ob = self._get_obs()
 
         if self.render_mode == "human":
+
             self.render()
         # truncation=False as the time limit is handled by the `TimeLimit` wrapper added during `make`
         return (
@@ -174,10 +200,9 @@ class FrankaXelaEnv(MujocoEnv, utils.EzPickle):
         )
 
     def reset_model(self):
-        qpos = self.init_qpos + self.np_random.uniform(
-            size=self.model.nq, low=-0.1, high=0.1
-        )
-        qvel = self.init_qvel + self.np_random.standard_normal(self.model.nv) * 0.1
+        qpos = self.init_qpos #+ self.np_random.uniform(size=self.model.nq, low=-0.1, high=0.1)
+        qvel = self.init_qvel #+ self.np_random.standard_normal(self.model.nv) * 0.1
+
         self.set_state(qpos, qvel)
         return self._get_obs()
 

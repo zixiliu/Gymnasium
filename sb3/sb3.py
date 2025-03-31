@@ -48,12 +48,20 @@ def test(env, sb3_algo, path_to_model):
 
     obs = env.reset()[0]
     done = False
-    extra_steps = 500
+    extra_steps = 50
     while True:
+
+        reward, bottle_at_target_reward, contact_reward = env.env.env.env.get_reward()
+        print(f"reward: {reward}, bottle_at_target_reward: {bottle_at_target_reward}, contact_reward: {contact_reward}")
+        # import pdb; pdb.set_trace()
+
+
         action, _ = model.predict(obs)
         obs, _, done, _, _ = env.step(action)
 
+
         if done:
+            print("Done!")
             extra_steps -= 1
 
             if extra_steps < 0:
