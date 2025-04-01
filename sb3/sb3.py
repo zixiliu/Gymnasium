@@ -48,7 +48,7 @@ def test(env, sb3_algo, path_to_model):
 
     obs = env.reset()[0]
     done = False
-    extra_steps = 50
+    extra_steps = 500
     while True:
 
         reward, bottle_at_target_reward, contact_reward = env.env.env.env.get_reward()

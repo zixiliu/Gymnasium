@@ -106,8 +106,12 @@ class FrankaXelaEnv(MujocoEnv, utils.EzPickle):
 
         """ Terminate if the bottle's COM z value is too low. """
         d = self.data
-        object_center_of_mass_world = d.geom_xpos[self.object_geom_id]
-        z_object = object_center_of_mass_world[2]
+        # object_center_of_mass_world = d.geom_xpos[self.object_geom_id]
+        # z_object = object_center_of_mass_world[2]
+        curr_state = d.qpos.flatten()
+        water_bottle_state = curr_state[-8:-1]
+        z_object = water_bottle_state[2]
+
         bottole_down = z_object < 0.4
         terminated = bottole_down
 
