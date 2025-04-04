@@ -1,3 +1,7 @@
+import sys
+import os
+base_path = os.path.dirname(__file__) if '__file__' in globals() else os.getcwd()
+sys.path.insert(0, os.path.abspath(os.path.join(base_path, '..')))
 import gymnasium as gym
 from stable_baselines3 import SAC, TD3, A2C, PPO
 import os
@@ -12,13 +16,13 @@ os.makedirs(log_dir, exist_ok=True)
 def train(env, sb3_algo):
     match sb3_algo:
         case 'SAC':
-            model = SAC('MlpPolicy', env, verbose=1, device='cpu', tensorboard_log=log_dir)
+            model = SAC('MlpPolicy', env, verbose=1, device='cuda', tensorboard_log=log_dir)
         case 'TD3':
-            model = TD3('MlpPolicy', env, verbose=1, device='cpu', tensorboard_log=log_dir)
+            model = TD3('MlpPolicy', env, verbose=1, device='cuda', tensorboard_log=log_dir)
         case 'A2C':
-            model = A2C('MlpPolicy', env, verbose=1, device='cpu', tensorboard_log=log_dir)
+            model = A2C('MlpPolicy', env, verbose=1, device='cuda', tensorboard_log=log_dir)
         case 'PPO':
-            model = PPO('MlpPolicy', env, verbose=1, device='cpu', tensorboard_log=log_dir)
+            model = PPO('MlpPolicy', env, verbose=1, device='cuda', tensorboard_log=log_dir)
         case _:
             print('Algorithm not found')
             return
@@ -51,8 +55,9 @@ def test(env, sb3_algo, path_to_model):
     extra_steps = 500
     while True:
 
-        reward, bottle_at_target_reward, contact_reward = env.env.env.env.get_reward()
-        print(f"reward: {reward}, bottle_at_target_reward: {bottle_at_target_reward}, contact_reward: {contact_reward}")
+        # import pdb; pdb.set_trace()
+        reward, bottle_at_target_reward, contact_reward, level_with_bottle_reward = env.env.env.env.get_reward()
+        print(f"reward: {reward}, bottle_at_target_reward: {bottle_at_target_reward}, contact_reward: {contact_reward}, level_with_bottle_reward= {level_with_bottle_reward}")
         # import pdb; pdb.set_trace()
 
 

@@ -91,16 +91,22 @@ class FrankaXelaEnv(MujocoEnv, utils.EzPickle):
         bottle_at_target_reward = 1.0 - abs(z_object - 1)
         # bottle_at_target_reward = z_object
 
+        ## level with bottle reward
+        palm_id = self.model.geom("hand_palm").id
+        z_dis = abs(d.geom_xpos[self.object_geom_id][2] - d.geom_xpos[palm_id][2])
+        # Reward for low z_dis
+        level_with_bottle_reward = 1.0 - z_dis
+
         # Calculate contact reward
         _, _, _, contact_forces = self.get_contact_sensor_readings()
         indices_of_contact_sensors = np.where(np.linalg.norm(contact_forces, axis=1) > 0.2)[0]
         num_contacts = len(indices_of_contact_sensors)
-        contact_reward = 1.0 if num_contacts >= 3 else 0.0
+        contact_reward = num_contacts
 
-        reward = bottle_at_target_reward + 10 * contact_reward
+        reward = bottle_at_target_reward + 10 * contact_reward + level_with_bottle_reward
 
         # print(f"reward={reward}, bottle_at_target_reward={bottle_at_target_reward}, contact_reward={contact_reward}")
-        return reward, bottle_at_target_reward, contact_reward
+        return reward, bottle_at_target_reward, contact_reward, level_with_bottle_reward
 
     def check_if_terminated(self):
 
@@ -122,7 +128,7 @@ class FrankaXelaEnv(MujocoEnv, utils.EzPickle):
         # print(f"action: {a}")
         # import pdb; pdb.set_trace()
 
-        reward, bottle_at_target_reward, contact_reward = self.get_reward()
+        reward, bottle_at_target_reward, contact_reward, level_with_bottle_reward = self.get_reward()
         # print(f"reward: {reward}")
         state = self.state_vector()
         terminated = self.check_if_terminated()
